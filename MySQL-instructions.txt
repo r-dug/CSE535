@@ -1,0 +1,69 @@
+1. on the Downloads page, go to the bottom, to the "MySQL Community (GPL) Downloads". When you click there, you're taken to a page where you can pick which packages you want; choose the MySQL Community Server (later on, come back to this page and choose MySQL Workbench). When you click there, you're taken to a page where you can indicate your computer's operating system and version. Choose whatever fits your case. If you're using Windows, you can download an MSI Installer version (preferred) or a ZIP file. Alternatively, on the MySQL Community Downloads there's a MySQL Installer for Windows option.
+2. Finally, when you make your final choice you will be prompted to sign in/create an account; ignore this. At the bottom of the page there is a "No thanks; just start my download link".
+3. The download itself may take a while; it is recommended that you do this only when you have a good network connexion.
+4. During the download process, you will be prompted to enter a password for the root user. We will explain users in more detail later; howewer, know that to access the database you have to be a (registered) user of the database. The database keeps track of authorized users, giving each one an account. When the database is created, no users or accounts exist, so the database installer creates an account called the 'root' account. To make sure only you can access the database, you are prompted for the password to be associated with this account. Give a password and REMEMBER IT FOR LATER. You will not be able to access the database without this password, and may need to reinstall the system if you skip this step or forget the password.
+5. There are basically two ways to access the server: one is the command line, using the CLI (Command Line Interface). Another is to use a client program. Once you've installed the Server, you can download and install MySQL Workbench (note: if you use the Installer, the Workbench may come bundled with the Server, so check after downloading to see if you already have it). This is a client program that uses a GUI (Graphical User Interface). 
+
+The CLI works on the Command Line: you need to open a Terminal Window, and type
+ >mysql -u root -p
+ The system will ask you for the password. Once you're in, you give a series of commands to tell the server what you want it to do.
+You can type 'help' or '\h' at the mysql> prompt for a list of available commands; you can also enter SQL commands (see below).
+
+ If you use Workbench,  you have to launch it, the first time you have to establish a connection to the database. You'll see a window where you are asked for your username and password. Fill those in (there are other fields too, but they all have default values and you don't need to change them). Once the connection is established, next time you are presented with a list of connections and you can simply click on the connection you just created.
+ 
+ This page contains all this information, with more detail: https://dev.mysql.com/doc/mysql-getting-started/en/
+ 
+SQL Commands for the Command Line (and SQL window on Workbench): we will explain (most of) these throughout the semester.
+
+Databases
+CREATE DATABASE [IF NOT EXISTS] database_name; # Create a database in the server
+SHOW DATABASE; # Show all available databases
+USE database_name; # Use a database with a specified name
+DROP DATABASE [IF EXISTS] database_name; # Drop a database with a specified name
+
+Tables
+CREATE TABLE [IF NOT EXISTS] table_name(column_list,...); # Create a new table
+SHOW TABLES; # Show all tables in the database
+DESCRIBE table_name;  #shows schema of table
+DESCRIBE table_name column_name; #shows description of attribute
+DROP TABLE [IF EXISTS] table_name; # Drop a table from the database
+ALTER TABLE table_name ADD [COLUMN] column_name;
+ALTER TABLE table_name DROP [COLUMN] column_name;
+ALTER TABLE table_name MODIFY column_name type;
+ALTER TABLE table_name MODIFY column_name type NOT NULL ...;
+ALTER TABLE table_name CHANGE old_column_name new_column_name type;
+ALTER TABLE table_name CHANGE old_column_name new_column_name type NOT NULL ...;
+ALTER TABLE table_name MODIFY column_name type FIRST;
+ALTER TABLE table_name MODIFY column_name type AFTER another_column;
+ALTER TABLE table_name CHANGE old_column_name new_column_name type FIRST;
+ALTER TABLE table_name CHANGE old_column_name new_column_name type AFTER another_column;
+ALTER TABLE table_name ALTER column_name SET DEFAULT ...;
+ALTER TABLE table_name ALTER column_name DROP DEFAULT;
+ALTER TABLE table_name ADD new_column_name type;
+ALTER TABLE table_name ADD new_column_name type FIRST;
+ALTER TABLE table_name ADD new_column_name type AFTER another_column;
+ALTER TABLE table_name ADD INDEX [name](column, ...);
+ALTER TABLE table_name ADD PRIMARY KEY (column_name,...);
+ALTER TABLE table_name DROP PRIMARY KEY; 
+
+INSERT INTO table_name VALUES(... );
+INSERT INTO table_name VALUES(... ) ON DUPLICATE KEY UPDATE assignment_list;
+DELETE FROM table_name WHERE condition;
+UPDATE table_name SET assignment_list WHERE condition;
+SELECT attributes FROM table_name_list WHERE condition;
+
+Users
+CREATE USER 'user'@'localhost';
+GRANT ALL PRIVILEGES ON base.* TO 'user'@'localhost' IDENTIFIED BY 'password';
+GRANT SELECT, INSERT, DELETE ON base.* TO 'user'@'localhost' IDENTIFIED BY 'password';
+REVOKE ALL PRIVILEGES ON base.* FROM 'user'@'host';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'user'@'host'; 
+FLUSH PRIVILEGES;
+SET PASSWORD = PASSWORD('new_pass');
+SET PASSWORD FOR 'user'@'host' = PASSWORD('new_pass');
+SET PASSWORD = OLD_PASSWORD('new_pass');
+DROP USER 'user'@'host';   
+   
+QUIT  \q
+   
+   
